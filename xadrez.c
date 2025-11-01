@@ -1,56 +1,103 @@
 #include <stdio.h>
-// Desafio de Xadrez - (Versão 2: Nível Aventureiro)
+
+// Desafio de Xadrez - MateCheck (Versão 3: Nível Mestre)
+
+
+/**
+ * @brief
+ * @param casas
+ */
+void moverTorreMestre(int casas) {
+    if (casas <= 0) {
+        return;
+    }
+    
+    printf("Direita\n");
+
+    moverTorreMestre(casas - 1);
+}
+
+/**
+ * @brief
+ * @param casas
+ */
+void moverRainhaMestre(int casas) {
+
+    if (casas <= 0) {
+        return;
+    }
+    printf("Esquerda\n");
+    moverRainhaMestre(casas - 1);
+}
+
+/**
+ * @brief
+ * @param passo_atual
+ * @param limite
+ */
+void moverBispoMestre(int passo_atual, int limite) {
+ 
+    if (passo_atual >= limite) {
+        return;
+    }
+
+    for (int v = 0; v < 1; v++) {
+
+        for (int h = 0; h < 1; h++) {
+ 
+            printf("Cima, Direita\n");
+        }
+    }
+    
+
+    moverBispoMestre(passo_atual + 1, limite);
+}
+
 
 int main() {
-    
+
     const int CASAS_TORRE = 5;
     const int CASAS_BISPO = 5;
     const int CASAS_RAINHA = 8;
-    int i; 
-    int contador_bispo = 0;
-    int contador_rainha = 0;
-    const int CAVALO_BAIXO = 2;
-    const int CAVALO_ESQUERDA = 1;
+    const int CAVALO_CIMA_MESTRE = 2;
+    const int CAVALO_DIREITA_MESTRE = 1;
 
-    printf("--- Nível Aventureiro ---\n\n");
+    printf("--- Nível Mestre ---\n\n");
+
 
     printf("Torre (Mover para):\n");
-    for (i = 0; i < CASAS_TORRE; i++) {
-        printf("Direita\n");
-    }
-    printf("\n");
-
-    printf("Bispo (Mover para):\n");
-    while (contador_bispo < CASAS_BISPO) {
-        printf("Cima, Direita\n");
-        contador_bispo++; 
-    }
+    moverTorreMestre(CASAS_TORRE);
     printf("\n");
 
     printf("Rainha (Mover para):\n");
-    if (CASAS_RAINHA > 0) {
-        do {
-            printf("Esquerda\n");
-            contador_rainha++;
-        } while (contador_rainha < CASAS_RAINHA);
-    }
+    moverRainhaMestre(CASAS_RAINHA);
     printf("\n");
 
-    printf("Cavalo (Mover para):\n");
+    printf("Bispo (Mover para):\n");
 
-    for (i = 0; i < 1; i++) {
-        
-        int v_count = 0;
-        while (v_count < CAVALO_BAIXO) {
-            printf("Baixo\n");
-            v_count++;
+    moverBispoMestre(0, CASAS_BISPO);
+    printf("\n");
+
+    printf("--- Nível Mestre (Loop Complexo) ---\n\n");
+
+    printf("Cavalo (Mover loop):\n");
+
+    for (int v = 0, h = 0; ; v++) {
+
+        if (v < CAVALO_CIMA_MESTRE) { 
+            printf("Cima\n"); 
+
+            continue; 
         }
 
-        int h_count = 0;
-        do {
-            printf("Esquerda\n");
-            h_count++;
-        } while (h_count < CAVALO_ESQUERDA);
+        if (h < CAVALO_DIREITA_MESTRE) { 
+            printf("Direita\n");
+            h++;
+        }
+
+        if (h >= CAVALO_DIREITA_MESTRE) {
+            break; 
+        }
     }
     printf("\n");
 
